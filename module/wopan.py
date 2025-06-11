@@ -7,13 +7,14 @@ import time
 from utils.aes import AESCipher
 from utils.send import Response
 
+clientSecret = "XFmi9GS2hzk98jGX"
 
 def SendCode(phone: str, uuid = "", verifyCode = "" ):
     url = "https://panservice.mail.wo.cn/api-user/sendMessageCodeBase"
 
     body = {"operateType":"1","phone":phone,"uuid":uuid,"verifyCode":verifyCode}
 
-    key = b'XFmi9GS2hzk98jGX'
+    key = clientSecret.encode("utf-8")
     iv = b'wNSOYIB1k1DjY5lA'
     aes = AESCipher(key, iv)
 
@@ -42,9 +43,9 @@ def SendCode(phone: str, uuid = "", verifyCode = "" ):
 def VerifyCode(phone: str, code: str):
     url = "https://panservice.mail.wo.cn/api-user/dispatcher"
 
-    body = {"phone": phone ,"smsCode": code ,"clientSecret":"XFmi9GS2hzk98jGX"}
+    body = {"phone": phone ,"smsCode": code ,"clientSecret":f"{clientSecret}"}
 
-    key = b'XFmi9GS2hzk98jGX'
+    key = clientSecret.encode("utf-8")
     iv = b'wNSOYIB1k1DjY5lA'
     aes = AESCipher(key, iv)
 
