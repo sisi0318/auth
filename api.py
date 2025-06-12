@@ -29,7 +29,7 @@ async def wopan_token_page():
     return FileResponse(index_path)
 
 
-# 处理 GET 参数
+# wopan
 @app.get("/api/wopan/sms")
 async def wopan_sms(phone: str = "" , code = None):
     if code is None:
@@ -38,13 +38,22 @@ async def wopan_sms(phone: str = "" , code = None):
         send = Wopan.VerifyCode(phone, code)
     return send
 
-# 处理 GET 参数
+# baidu_open
 @app.get("/api/baidu_open/oauth")
 async def baidu_open_oauth(code = None):
     if code is None:
         send = BaiduOpen.GetOauthUrl()
     else:
         send = BaiduOpen.GetAccessToken(code)
+    return send
+
+# badu_open_qrcode
+@app.get("/api/baidu_open/qrcode")
+async def baidu_open_oauth(code = None):
+    if code is None:
+        send = BaiduOpen.GetOauthQrcode()
+    else:
+        send = BaiduOpen.GetAccessTokenByDeviceCode(code)
     return send
 
 
