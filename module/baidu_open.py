@@ -30,7 +30,7 @@ def GetAccessToken(code: str,redirect_uri= "oob"):
         "code": code,
         "client_id": client_id,
         "client_secret": client_secret,
-        "redirect_uri": "oob"
+        "redirect_uri": redirect_uri
     }
     
     response = httpx.post(url, params=params)
