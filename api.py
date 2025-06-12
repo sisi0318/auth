@@ -6,6 +6,7 @@ from fastapi.responses import FileResponse
 import os
 
 import module.wopan as Wopan
+import module.baidu_open as BaiduOpen
 
 app = FastAPI()
 
@@ -37,7 +38,14 @@ async def wopan_sms(phone: str = "" , code = None):
         send = Wopan.VerifyCode(phone, code)
     return send
 
-
+# 处理 GET 参数
+@app.get("/api/baidu_open/oauth")
+async def baidu_open_oauth(code = None):
+    if code is None:
+        send = BaiduOpen.GetOauthUrl()
+    else:
+        send = BaiduOpen.GetAccessToken(code)
+    return send
 
 
 if __name__ == "__main__":
